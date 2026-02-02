@@ -1,0 +1,13 @@
+Product: SmartWatch Pro X1
+Price: ₹15,999 | Features: Heart rate, GPS, 7-day battery, water resistant 50m
+Warranty: 1 year standard, 2 years extended (₹1,999)
+ 
+Product: Wireless Earbuds El
+Price: ₹4,999 | Features: ANC, 24-hour battery, Bluetooth 5.2 | Warranty: 6 months
+ 
+Product: Power Bank Ult 20000mAh
+Price: ₹2,499 | Features: Fast charging 22.5W, USB-C & USB-A | Warranty: 1 year
+ 
+Return Policy: 14-day no-questions-asked. Refund in 5-7 business days.
+Support: Mon-Sat, 9AM-6PM IST | support_mail@techgear.com
+

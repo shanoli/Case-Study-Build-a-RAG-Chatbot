@@ -1,0 +1,28 @@
+# Environment variables
+.env
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Data and database
+data/chroma_db/
+chroma.sqlite3
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+*.log
+server_jwt_fixed*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,245 @@
+# TechGear Product Catalog and Inventory Summary
+This is a summary of all products TechGear sells. Use this for broad questions about our inventory or what we sell.
+We sell and offer a wide range of electronics and consumer products including:
+*   SmartWatches and Fitness Trackers: (SmartWatch Pro X, SmartWatch Lite S, Fitness Band Active)
+*   Audio and Sound Equipment: (Wireless Earbuds Elite, Wireless Earbuds Go, Sport Earbuds, Noise Cancelling Headphones Max, Bluetooth Speaker Boom Mini, Bluetooth Speaker Party XL)
+*   Power, Charging, and Batteries: (Power Bank Ultra 20000mAh, Power Bank Slim 10000mAh, USB-C Fast Charger 65W, USB-C Fast Charger 30W, Wireless Charging Pad)
+*   Computer Accessories and Inputs: (Mechanical Keyboard RGB, Wireless Keyboard & Mouse Combo, Gaming Mouse X200, Ergonomic Office Mouse, USB Hub 7-in-1)
+*   Monitors and WebCams: (27-inch Monitor QHD, 24-inch Monitor FHD, WebCam HD Pro, WebCam Basic)
+*   Smart Home and Security: (WiFi Smart Bulb, Smart Plug Mini, Home Security Camera, Video Door Bell Smart, Smart Air Purifier, Robot Vacuum Lite, Handheld Vacuum Cleaner)
+*   Tablets and Storage Solutions: (Tablet 10-inch Pro, Tablet 8-inch Mini, Portable SSD 1TB, External HDD 2TB)
+*   Networking and Streaming Products: (Router Dual Band AX1800, Range Extender Pro, Smart TV Stick 4K, Streaming Box HD)
+*   Kitchen and Health Gadgets: (Electric Kettle Smart, Coffee Maker Compact, Smart Weighing Scale, Infrared Thermometer)
+*   Other Electronics: (Car Charger, Dash Cam Pro, Portable Projector Mini, Smart Alarm Clock, Digital Noise Meter, GPS Tracker)
+
+## Detailed Product List
+
+1. Product: SmartWatch Pro X
+   Price: ₹15,999 | Features: Heart rate, GPS, 7-day battery, water resistant 50m
+   Warranty: 1 year standard, 2 years extended (₹1,999)
+
+2. Product: SmartWatch Lite S
+   Price: ₹7,499 | Features: Step tracking, sleep monitor, 5-day battery
+   Warranty: 1 year
+
+3. Product: Fitness Band Active
+   Price: ₹3,299 | Features: Calories, SPO2, 10-day battery
+   Warranty: 6 months
+
+4. Product: Wireless Earbuds Elite
+   Price: ₹4,999 | Features: ANC, 24-hour battery, Bluetooth 5.2
+   Warranty: 6 months
+
+5. Product: Wireless Earbuds Go
+   Price: ₹2,199 | Features: ENC, 18-hour battery
+   Warranty: 6 months
+
+6. Product: Noise Cancelling Headphones Max
+   Price: ₹9,999 | Features: ANC, 40-hour battery, foldable
+   Warranty: 1 year
+
+7. Product: Bluetooth Speaker Boom Mini
+   Price: ₹1,899 | Features: Deep bass, IPX7, 12-hour playtime
+   Warranty: 1 year
+
+8. Product: Bluetooth Speaker Party XL
+   Price: ₹6,499 | Features: RGB lights, 20-hour battery
+   Warranty: 1 year
+
+9. Product: Power Bank Ultra 20000mAh
+   Price: ₹2,499 | Features: Fast charging 22.5W, USB-C & USB-A
+   Warranty: 1 year
+
+10. Product: Power Bank Slim 10000mAh
+    Price: ₹1,299 | Features: Fast charge, lightweight
+    Warranty: 1 year
+
+11. Product: USB-C Fast Charger 65W
+    Price: ₹2,799 | Features: GaN tech, laptop support
+    Warranty: 1 year
+
+12. Product: USB-C Fast Charger 30W
+    Price: ₹1,199 | Features: Compact, fast charge
+    Warranty: 1 year
+
+13. Product: Laptop Backpack Pro
+    Price: ₹3,499 | Features: Water resistant, USB port
+    Warranty: 6 months
+
+14. Product: Laptop Sleeve Neo
+    Price: ₹999 | Features: Shockproof padding
+    Warranty: 6 months
+
+15. Product: Mechanical Keyboard RGB
+    Price: ₹5,999 | Features: Blue switches, customizable RGB
+    Warranty: 1 year
+
+16. Product: Wireless Keyboard & Mouse Combo
+    Price: ₹1,899 | Features: Silent keys, 2.4GHz
+    Warranty: 1 year
+
+17. Product: Gaming Mouse X200
+    Price: ₹1,499 | Features: 7200 DPI, RGB
+    Warranty: 1 year
+
+18. Product: Ergonomic Office Mouse
+    Price: ₹1,199 | Features: Vertical design
+    Warranty: 1 year
+
+19. Product: 27-inch Monitor QHD
+    Price: ₹22,999 | Features: IPS, 144Hz
+    Warranty: 3 years
+
+20. Product: 24-inch Monitor FHD
+    Price: ₹11,999 | Features: IPS, 75Hz
+    Warranty: 3 years
+
+21. Product: WebCam HD Pro
+    Price: ₹3,299 | Features: 1080p, noise reduction mic
+    Warranty: 1 year
+
+22. Product: WebCam Basic
+    Price: ₹1,799 | Features: 720p
+    Warranty: 6 months
+
+23. Product: Smart Bulb WiFi
+    Price: ₹899 | Features: App control, RGB
+    Warranty: 1 year
+
+24. Product: Smart Plug Mini
+    Price: ₹799 | Features: Voice assistant support
+    Warranty: 1 year
+
+25. Product: Home Security Camera
+    Price: ₹2,999 | Features: Motion detection, night vision
+    Warranty: 1 year
+
+26. Product: Video Door Bell Smart
+    Price: ₹6,999 | Features: Two-way audio
+    Warranty: 1 year
+
+27. Product: Tablet 10-inch Pro
+    Price: ₹18,999 | Features: 6GB RAM, 128GB storage
+    Warranty: 1 year
+
+28. Product: Tablet 8-inch Mini
+    Price: ₹9,499 | Features: 4GB RAM
+    Warranty: 1 year
+
+29. Product: Portable SSD 1TB
+    Price: ₹8,999 | Features: USB 3.2, metal body
+    Warranty: 3 years
+
+30. Product: External HDD 2TB
+    Price: ₹5,999 | Features: USB 3.0
+    Warranty: 2 years
+
+31. Product: Router Dual Band AX1800
+    Price: ₹4,999 | Features: WiFi 6
+    Warranty: 2 years
+
+32. Product: Range Extender Pro
+    Price: ₹2,299 | Features: Wide coverage
+    Warranty: 1 year
+
+33. Product: Smart TV Stick 4K
+    Price: ₹3,999 | Features: Dolby Vision
+    Warranty: 1 year
+
+34. Product: Streaming Box HD
+    Price: ₹2,499 | Features: Voice remote
+    Warranty: 1 year
+
+35. Product: True Wireless Earbuds Sport
+    Price: ₹3,499 | Features: Ear hooks, sweat resistant
+    Warranty: 6 months
+
+36. Product: Car Charger Dual USB
+    Price: ₹699 | Features: Fast charge
+    Warranty: 6 months
+
+37. Product: Dash Cam Pro
+    Price: ₹4,299 | Features: 2K recording
+    Warranty: 1 year
+
+38. Product: Smart Air Purifier
+    Price: ₹12,999 | Features: HEPA filter, AQI display
+    Warranty: 1 year
+
+39. Product: Robot Vacuum Lite
+    Price: ₹17,999 | Features: App control
+    Warranty: 1 year
+
+40. Product: Handheld Vacuum Cleaner
+    Price: ₹3,999 | Features: Cordless
+    Warranty: 1 year
+
+41. Product: Electric Kettle Smart
+    Price: ₹2,299 | Features: Auto shut-off
+    Warranty: 1 year
+
+42. Product: Coffee Maker Compact
+    Price: ₹4,999 | Features: Drip brew
+    Warranty: 1 year
+
+43. Product: Smart Weighing Scale
+    Price: ₹1,799 | Features: BMI tracking
+    Warranty: 1 year
+
+44. Product: Infrared Thermometer
+    Price: ₹1,499 | Features: Non-contact
+    Warranty: 6 months
+
+45. Product: Wireless Charging Pad
+    Price: ₹1,299 | Features: 15W fast charge
+    Warranty: 1 year
+
+46. Product: USB Hub 7-in-1
+    Price: ₹2,199 | Features: HDMI, SD reader
+    Warranty: 1 year
+
+47. Product: Portable Projector Mini
+    Price: ₹9,999 | Features: 1080p support
+    Warranty: 1 year
+
+48. Product: Smart Alarm Clock
+    Price: ₹2,499 | Features: Voice assistant
+    Warranty: 1 year
+
+49. Product: Noise Meter Digital
+    Price: ₹1,199 | Features: LCD display
+    Warranty: 6 months
+
+50. Product: GPS Tracker Compact
+    Price: ₹3,499 | Features: Real-time tracking
+    Warranty: 1 year
+
+---
+
+## Return Policies
+
+1. 7-day no-questions-asked return. Refund in 5–7 business days.
+2. 10-day return for manufacturing defects only.
+3. 15-day replacement policy for damaged items.
+4. Same-day return for unopened accessories.
+5. 7-day replacement, no cash refund.
+6. 14-day return with original packaging mandatory.
+7. 30-day return for premium products.
+8. No return on clearance or discounted items.
+9. Return pickup within 3 working days after approval.
+10. Refunds processed to original payment method only.
+
+---
+
+## Support
+
+1. Mon–Sat, 9AM–6PM IST | [support@techgear.com](mailto:support@techgear.com)
+2. 24×7 Chat Support | chat.techgear.com
+3. Toll-Free: 1800-111-222 | Mon–Fri
+4. WhatsApp Support: +91-90000-11111
+5. Email Support (Orders): [orders@techgear.com](mailto:orders@techgear.com)
+6. Email Support (Warranty): [warranty@techgear.com](mailto:warranty@techgear.com)
+7. Live Agent Support: Mon–Sat, 10AM–8PM
+8. Self-Service Helpdesk: help.techgear.com
+9. Priority Support for Premium Members
+10. Callback Support within 24 hours

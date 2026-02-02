@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechGear RAG Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: #f8f9fa;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .sidebar-header h1 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-header p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .session-list {
+            list-style: none;
+        }
+
+        .session-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .session-item:hover {
+            background: #e3f2fd;
+        }
+
+        .session-item.active {
+            border-color: #667eea;
+            background: #e3f2fd;
+        }
+
+        .session-item-id {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .session-item-time {
+            font-size: 11px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .new-chat-btn {
+            margin: 16px;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .new-chat-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Main Chat Area */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 20px 24px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            background: #fafafa;
+        }
+
+        .message {
+            margin-bottom: 16px;
+            display: flex;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.assistant .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-meta {
+            font-size: 11px;
+            margin-top: 8px;
+            opacity: 0.7;
+        }
+
+        .message-badges {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .badge.category {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge.source {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .badge.language {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: fit-content;
+        }
+
+        .typing-indicator.active {
+            display: block;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+            }
+
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .chat-input-container {
+            padding: 20px 24px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: none;
+            min-height: 48px;
+            max-height: 120px;
+            transition: border-color 0.2s;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .send-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 0.2s;
+            min-width: 80px;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quick-action {
+            padding: 8px 12px;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-action:hover {
+            background: #e3f2fd;
+            border-color: #667eea;
+        }
+
+        /* Settings Panel */
+        .settings-btn {
+            padding: 8px 16px;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s;
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .settings-panel.active {
+            right: 0;
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .settings-header h2 {
+            font-size: 20px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .setting-group {
+            margin-bottom: 24px;
+        }
+
+        .setting-group h3 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #666;
+        }
+
+        .setting-item {
+            margin-bottom: 12px;
+        }
+
+        .setting-item label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 4px;
+            color: #666;
+        }
+
+        .setting-item input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .upload-area {
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .upload-area:hover {
+            border-color: #667eea;
+            background: #f5f5ff;
+        }
+
+        .upload-area input {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .container {
+                height: 100vh;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>💬 TechGear Chat</h1>
+                <p>Powered by LangGraph & Gemini</p>
+            </div>
+            <button class="new-chat-btn" onclick="startNewChat()">+ New Conversation</button>
+            <div class="sidebar-content">
+                <ul class="session-list" id="sessionList">
+                    <!-- Sessions will be populated here -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Chat -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-title" id="chatTitle">TechGear Support Assistant</div>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                    <div class="status-badge" id="statusBadge">Ready</div>
+                    <button class="settings-btn" onclick="toggleSettings()">⚙️ Settings</button>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message assistant">
+                    <div class="message-content">
+                        <div>👋 Welcome to TechGear Support! I'm here to help you with:</div>
+                        <ul style="margin: 12px 0; padding-left: 20px;">
+                            <li>Product information (SmartWatch, Earbuds, Power Bank)</li>
+                            <li>Pricing and warranty details</li>
+                            <li>Return and refund policies</li>
+                            <li>Support and contact information</li>
+                        </ul>
+                        <div>How can I assist you today?</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="quick-actions" id="quickActions">
+                    <button class="quick-action" onclick="sendQuickMessage('What products do you sell?')">📦
+                        Products</button>
+                    <button class="quick-action" onclick="sendQuickMessage('What is your return policy?')">↩️
+                        Returns</button>
+                    <button class="quick-action" onclick="sendQuickMessage('Tell me about the SmartWatch warranty')">🛡️
+                        Warranty</button>
+                    <button class="quick-action" onclick="sendQuickMessage('How can I contact support?')">📞
+                        Contact</button>
+                </div>
+                <div class="chat-input-wrapper">
+                    <textarea class="chat-input" id="messageInput" placeholder="Type your message..." rows="1"
+                        onkeypress="handleKeyPress(event)"></textarea>
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h2>⚙️ Settings</h2>
+            <button class="close-btn" onclick="toggleSettings()">×</button>
+        </div>
+
+        <div class="setting-group">
+            <h3>API Configuration</h3>
+            <div class="setting-item">
+                <label>API Base URL</label>
+                <input type="text" id="apiBaseUrl" value="" placeholder="http://localhost:8001">
+            </div>
+            <div class="setting-item">
+                <label>Authentication</label>
+                <div id="loginGroup" style="display: flex; gap: 8px;">
+                    <input type="email" id="userEmail" value="user@example.com" placeholder="Enter your email">
+                    <button onclick="login()"
+                        style="padding: 8px 16px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Login</button>
+                </div>
+                <div id="logoutGroup" style="display: none; gap: 8px; align-items: center;">
+                    <span id="loggedInEmail" style="font-size: 14px; font-weight: 600; color: #4cd137;"></span>
+                    <button onclick="logout()"
+                        style="padding: 6px 12px; background: #ff4d4d; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px;">Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Knowledge Base section removed as requested -->
+
+        <div class="setting-group">
+            <h3>Session Info</h3>
+            <div style="font-size: 12px; color: #666; background: #f5f5f5; padding: 12px; border-radius: 6px;">
+                <div><strong>User:</strong> <span id="currentUserEmail">None</span></div>
+                <div style="margin-top: 8px;"><strong>Current Session:</strong> <span id="currentSessionId">None</span>
+                </div>
+                <div style="margin-top: 8px;"><strong>Messages:</strong> <span id="messageCount">0</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentSessionId = null;
+        let messageCount = 0;
+        let authToken = localStorage.getItem('authToken');
+        let currentUserEmail = localStorage.getItem('userEmail') || 'user@example.com';
+
+        const apiBaseUrl = () => document.getElementById('apiBaseUrl').value || window.location.origin;
+        const userEmail = () => document.getElementById('userEmail').value;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Default to current origin if served from the same server
+            const baseInput = document.getElementById('apiBaseUrl');
+            if (window.location.protocol.startsWith('http')) {
+                baseInput.value = window.location.origin;
+            } else {
+                baseInput.value = 'http://localhost:8000';
+            }
+
+            document.getElementById('userEmail').value = currentUserEmail;
+
+            updateSessionInfo();
+            loadSessions();
+            autoResize();
+
+            // Listen for email changes
+            document.getElementById('userEmail').addEventListener('change', () => {
+                updateSessionInfo();
+                loadSessions();
+            });
+        });
+
+        // Auto-resize textarea
+        function autoResize() {
+            const textarea = document.getElementById('messageInput');
+            textarea.addEventListener('input', function () {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+            });
+        }
+
+        // Handle enter key
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // Send message
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            if (!authToken) {
+                alert("Please login first to chat!");
+                toggleSettings(); // Open settings to help user login
+                return;
+            }
+
+            // Disable input
+            input.value = '';
+            input.style.height = 'auto';
+            document.getElementById('sendBtn').disabled = true;
+
+            // Add user message to UI
+            addMessage(message, 'user');
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            try {
+                const response = await fetch(`${apiBaseUrl()}/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        session_id: currentSessionId
+                    })
+                });
+
+                const data = await response.json();
+
+                // Update session if new
+                if (!currentSessionId) {
+                    currentSessionId = data.session_id;
+                    updateSessionInfo();
+                    loadSessions();
+                }
+
+                // Hide typing indicator
+                hideTypingIndicator();
+
+                // Add assistant message
+                addMessage(data.reply, 'assistant', {
+                    category: data.category,
+                    source: data.source,
+                    language: data.language,
+                    confidence: data.confidence,
+                    chunks: data.retrieved_chunks
+                });
+
+                messageCount++;
+                updateSessionInfo();
+
+            } catch (error) {
+                hideTypingIndicator();
+                addMessage('Sorry, I encountered an error. Please try again.', 'assistant', { error: true });
+                console.error('Error:', error);
+            }
+
+            // Re-enable input
+            document.getElementById('sendBtn').disabled = false;
+            input.focus();
+        }
+
+        // Send quick message
+        function sendQuickMessage(message) {
+            document.getElementById('messageInput').value = message;
+            sendMessage();
+        }
+
+        // Add message to chat
+        function addMessage(text, role, metadata = {}) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+
+            let badgesHtml = '';
+            if (metadata.category) {
+                badgesHtml += `<span class="badge category">${metadata.category}</span>`;
+            }
+            if (metadata.source) {
+                badgesHtml += `<span class="badge source">${metadata.source}</span>`;
+            }
+            if (metadata.language && metadata.language !== 'en') {
+                badgesHtml += `<span class="badge language">${metadata.language}</span>`;
+            }
+
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    <div>${text}</div>
+                    ${badgesHtml ? `<div class="message-badges">${badgesHtml}</div>` : ''}
+                    <div class="message-meta">${new Date().toLocaleTimeString()}</div>
+                </div>
+            `;
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Typing indicator
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const indicator = document.createElement('div');
+            indicator.id = 'typingIndicator';
+            indicator.className = 'typing-indicator active';
+            indicator.innerHTML = `
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+            messagesContainer.appendChild(indicator);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        // Start new chat
+        function startNewChat() {
+            currentSessionId = null;
+            messageCount = 0;
+            document.getElementById('chatMessages').innerHTML = `
+                <div class="message assistant">
+                    <div class="message-content">
+                        <div>👋 Welcome to TechGear Support! I'm here to help you with:</div>
+                        <ul style="margin: 12px 0; padding-left: 20px;">
+                            <li>Product information (SmartWatch, Earbuds, Power Bank)</li>
+                            <li>Pricing and warranty details</li>
+                            <li>Return and refund policies</li>
+                            <li>Support and contact information</li>
+                        </ul>
+                        <div>How can I assist you today?</div>
+                    </div>
+                </div>
+            `;
+            updateSessionInfo();
+        }
+
+        // Load sessions
+        async function loadSessions() {
+            if (!authToken) return;
+            try {
+                const response = await fetch(`${apiBaseUrl()}/sessions/`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+                const data = await response.json();
+
+                const sessionList = document.getElementById('sessionList');
+                sessionList.innerHTML = '';
+
+                data.sessions.forEach(session => {
+                    const li = document.createElement('li');
+                    li.className = 'session-item' + (session.session_id === currentSessionId ? ' active' : '');
+                    li.innerHTML = `
+                        <div class="session-item-id">${session.session_id.substring(0, 20)}...</div>
+                        <div class="session-item-time">${session.message_count} messages</div>
+                    `;
+                    li.onclick = () => loadSession(session.session_id);
+                    sessionList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Failed to load sessions:', error);
+            }
+        }
+
+        // Load specific session
+        async function loadSession(sessionId) {
+            try {
+                const response = await fetch(`${apiBaseUrl()}/sessions/${sessionId}/history`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+                const data = await response.json();
+
+                currentSessionId = sessionId;
+                messageCount = data.message_count;
+
+                const messagesContainer = document.getElementById('chatMessages');
+                messagesContainer.innerHTML = '';
+
+                data.conversation_history.forEach(msg => {
+                    addMessage(msg.content, msg.role, msg.metadata || {});
+                });
+
+                updateSessionInfo();
+                loadSessions();
+            } catch (error) {
+                console.error('Failed to load session:', error);
+            }
+        }
+
+        // Update session info
+        function updateSessionInfo() {
+            document.getElementById('currentUserEmail').textContent = currentUserEmail || 'None';
+            document.getElementById('currentSessionId').textContent = currentSessionId || 'None';
+            document.getElementById('messageCount').textContent = messageCount;
+
+            if (!authToken) {
+                document.getElementById('statusBadge').textContent = 'Login Required';
+                document.getElementById('statusBadge').style.background = '#ff4d4d';
+                document.getElementById('loginGroup').style.display = 'flex';
+                document.getElementById('logoutGroup').style.display = 'none';
+            } else {
+                document.getElementById('statusBadge').textContent = 'Ready';
+                document.getElementById('statusBadge').style.background = '#4cd137';
+                document.getElementById('loginGroup').style.display = 'none';
+                document.getElementById('logoutGroup').style.display = 'flex';
+                document.getElementById('loggedInEmail').textContent = currentUserEmail;
+            }
+        }
+
+        // Login
+        async function login() {
+            const email = userEmail();
+            if (!email) return;
+
+            try {
+                const response = await fetch(`${apiBaseUrl()}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const data = await response.json();
+                if (data.access_token) {
+                    authToken = data.access_token;
+                    currentUserEmail = email;
+                    localStorage.setItem('authToken', authToken);
+                    localStorage.setItem('userEmail', currentUserEmail);
+                    alert('Login successful!');
+                    toggleSettings(); // Close settings on success
+                    updateSessionInfo();
+                    loadSessions();
+                }
+            } catch (error) {
+                alert('Login failed: ' + error.message);
+            }
+        }
+
+        // Logout
+        function logout() {
+            authToken = null;
+            currentUserEmail = '';
+            currentSessionId = null;
+            messageCount = 0;
+
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userEmail');
+
+            document.getElementById('chatMessages').innerHTML = '';
+            startNewChat();
+
+            alert('Logged out successfully');
+            updateSessionInfo();
+            loadSessions();
+        }
+
+        // Toggle settings
+        function toggleSettings() {
+            const panel = document.getElementById('settingsPanel');
+            panel.classList.toggle('active');
+        }
+
+        // Upload knowledge base
+        async function uploadKnowledgeBase(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('chunk_size', '500');
+            formData.append('chunk_overlap', '50');
+            formData.append('replace_existing', 'true');
+
+            try {
+                document.getElementById('statusBadge').textContent = 'Uploading...';
+                const response = await fetch(`${apiBaseUrl()}/knowledge/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                alert(`Knowledge base uploaded successfully!\n${data.chunks_created} chunks created in ${data.processing_time_ms}ms`);
+                document.getElementById('statusBadge').textContent = 'Ready';
+            } catch (error) {
+                alert('Failed to upload knowledge base: ' + error.message);
+                document.getElementById('statusBadge').textContent = 'Error';
+            }
+        }
+
+        // Check KB status
+        async function checkKnowledgeBaseStatus() {
+            try {
+                const response = await fetch(`${apiBaseUrl()}/knowledge/status`);
+                const data = await response.json();
+                alert(`Knowledge Base Status:\n\nTotal Chunks: ${data.total_chunks}\nDocuments: ${data.total_documents}\nEmbedding Model: ${data.embedding_model}\nLast Updated: ${data.last_updated || 'Never'}`);
+            } catch (error) {
+                alert('Failed to check KB status: ' + error.message);
+            }
+        }
+    </script>
+</body>
+
+</html>
